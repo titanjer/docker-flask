@@ -1,0 +1,7 @@
+README.md
+LICENSE
+Makefile
+
+**/*~
+Dockerfile
+**/*.pyc
