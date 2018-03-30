@@ -30,16 +30,21 @@ RUN apk update \
     && rm -rf /root/.cache /var/cache/apk/* /tmp/*
 
 COPY src /app
+RUN chown -R nobody:nogroup /app /var/run/
 
 ENV UWSGI_MODULE=main \
     UWSGI_CALLABLE=app \
-    UWSGI_SOCKET=0.0.0.0:8000 \
+    UWSGI_SOCKET=/var/run/uwsgi.sock \
+    UWSGI_CHMOD_SOCKET=666 \
     UWSGI_MASTER=1 \
     UWSGI_WORKERS=2 \
     UWSGI_THREADS=8 \
+    UWSGI_UID=nobody \
+    UWSGI_GID=nogroup \
     UWSGI_LAZY_APPS=1
 
+VOLUME /var/run/
 
-EXPOSE 8000
+USER nobody
 
 CMD ["uwsgi"] 

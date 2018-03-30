@@ -4,21 +4,11 @@ services:
   app:
     build: ./app
     image: titanjer/docker-flask-app
-    ports:
-      - "8000:8000"
-        #     logging:
-        #       driver: awslogs
-        #       options:
-        #         awslogs-region: us-east-1
-        #         awslogs-group: docker-flask
 
   nginx:
     build: ./nginx
     image: titanjer/docker-flask-nginx
     ports:
       - "80:80"
-        #     logging:
-        #       driver: awslogs
-        #       options:
-        #         awslogs-region: us-east-1
-        #         awslogs-group: docker-flask
+    volumes_from:
+      - app:rw

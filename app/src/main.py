@@ -10,4 +10,4 @@ HOST = socket.gethostname()
 
 @app.route("/")
 def hello():
-    return HOST
+    return HOST + '-g'

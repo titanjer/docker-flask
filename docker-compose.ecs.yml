@@ -1,0 +1,26 @@
+version: '2'
+
+services:
+  app:
+    build: ./app
+    image: titanjer/docker-flask-app
+    logging:
+      driver: awslogs
+      options:
+        awslogs-region: us-east-1
+        awslogs-group: docker-flask
+        awslogs-stream-prefix: app
+
+  nginx:
+    build: ./nginx
+    image: titanjer/docker-flask-nginx
+    ports:
+      - "80:80"
+    volumes_from:
+      - app:rw
+    logging:
+      driver: awslogs
+      options:
+        awslogs-region: us-east-1
+        awslogs-group: docker-flask
+        awslogs-stream-prefix: nginx
